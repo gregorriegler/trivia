@@ -73,5 +73,26 @@ describe('Game', () => {
         expect(game.currentPlayerName()).to.equal("player2")
     });
 
+    it('should make a player win, if player purse not 6', () => {
+        let game = new Game()
+        game.add("player1")
 
+        let win = game.wasCorrectlyAnswered();
+
+        expect(win).to.be.true
+    });
+
+    it('should not make a player win, if player purse is 6', () => {
+        let game = new Game()
+        game.add("player1")
+
+        game.wasCorrectlyAnswered()
+        game.wasCorrectlyAnswered()
+        game.wasCorrectlyAnswered()
+        game.wasCorrectlyAnswered()
+        game.wasCorrectlyAnswered()
+        let win = game.wasCorrectlyAnswered();
+
+        expect(win).to.be.false
+    });
 });
