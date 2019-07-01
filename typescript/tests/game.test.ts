@@ -106,4 +106,15 @@ describe('Game', () => {
 
         expect(win).to.be.true
     });
+
+    it('should make a player win, if getting out of penalty box and answered correctly', () => {
+        let game = new Game()
+        game.add("player1")
+        game.wrongAnswer()
+        game.gettingOutOfPenaltyBox()
+
+        let win = game.wasCorrectlyAnswered()
+
+        expect(win).to.be.true
+    });
 });

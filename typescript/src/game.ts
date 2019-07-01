@@ -168,7 +168,7 @@ export class Game {
     public wasCorrectlyAnswered(): boolean {
         if (this.currentPlayerInPenaltyBox()) {
             if (this.isGettingOutOfPenaltyBox) {
-                this.correctAnswer()
+                return this.correctAnswer()
             } else {
                 this.rotatePlayer();
                 return true;
