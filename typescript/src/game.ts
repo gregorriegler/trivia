@@ -38,7 +38,7 @@ export class Game {
         console.log(this.playerName(this.currentPlayer) + " is the current player");
         console.log("They have rolled a " + roll);
 
-        if (this.inPenaltyBox[this.currentPlayer]) {
+        if (this.isInPenaltyBox(this.currentPlayer)) {
             if (roll % 2 != 0) {
                 this.isGettingOutOfPenaltyBox = true;
 
@@ -67,12 +67,20 @@ export class Game {
         }
     }
 
-    public place(index) {
+    public playerName(index: number) {
+        return this.players[index];
+    }
+
+    public place(index: number) {
         return this.places[index];
     }
 
-    public playerName(index) {
-        return this.players[index];
+    public purse(currentPlayer: number) {
+        return this.purses[currentPlayer];
+    }
+
+    public isInPenaltyBox(currentPlayer: number) {
+        return this.inPenaltyBox[currentPlayer];
     }
 
     private askQuestion(): void {
@@ -109,7 +117,7 @@ export class Game {
     }
 
     private didPlayerWin(): boolean {
-        return !(this.purses[this.currentPlayer] == 6)
+        return !(this.purse(this.currentPlayer) == 6)
     }
 
     public wrongAnswer(): boolean {
@@ -124,12 +132,11 @@ export class Game {
     }
 
     public wasCorrectlyAnswered(): boolean {
-        if (this.inPenaltyBox[this.currentPlayer]) {
+        if (this.isInPenaltyBox(this.currentPlayer)) {
             if (this.isGettingOutOfPenaltyBox) {
                 console.log('Answer was correct!!!!');
                 this.purses[this.currentPlayer] += 1;
-                console.log(this.playerName(this.currentPlayer) + " now has " +
-                    this.purses[this.currentPlayer] + " Gold Coins.");
+                console.log(this.playerName(this.currentPlayer) + " now has " + this.purse(this.currentPlayer) + " Gold Coins.");
 
                 var winner = this.didPlayerWin();
                 this.currentPlayer += 1;
@@ -147,7 +154,7 @@ export class Game {
             console.log("Answer was correct!!!!");
 
             this.purses[this.currentPlayer] += 1;
-            console.log(this.playerName(this.currentPlayer) + " now has " + this.purses[this.currentPlayer] + " Gold Coins.");
+            console.log(this.playerName(this.currentPlayer) + " now has " + this.purse(this.currentPlayer) + " Gold Coins.");
 
             var winner = this.didPlayerWin();
 
