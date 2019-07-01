@@ -101,7 +101,6 @@ describe('Game', () => {
         game.add("player1")
         game.wrongAnswer()
 
-
         let win = game.wasCorrectlyAnswered()
 
         expect(win).to.be.true
