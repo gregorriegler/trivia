@@ -40,7 +40,7 @@ export class Game {
 
         if (this.currentPlayerInPenaltyBox()) {
             if (roll % 2 != 0) {
-                this.isGettingOutOfPenaltyBox = true;
+                this.gettingOutOfPenaltyBox();
 
                 console.log(this.currentPlayerName() + " is getting out of the penalty box");
                 this.places[this.currentPlayer] = this.currentPlayerPlace() + roll;
@@ -53,7 +53,7 @@ export class Game {
                 this.askQuestion();
             } else {
                 console.log(this.currentPlayerName() + " is not getting out of the penalty box");
-                this.isGettingOutOfPenaltyBox = false;
+                this.notGettingOutOfPenaltyBox();
             }
         } else {
             this.places[this.currentPlayer] = this.currentPlayerPlace() + roll;
@@ -65,6 +65,14 @@ export class Game {
             console.log("The category is " + this.currentCategory());
             this.askQuestion();
         }
+    }
+
+    public notGettingOutOfPenaltyBox() {
+        this.isGettingOutOfPenaltyBox = false;
+    }
+
+    public gettingOutOfPenaltyBox() {
+        this.isGettingOutOfPenaltyBox = true;
     }
 
     public currentPlayerName() {
