@@ -34,18 +34,6 @@ export class Game {
         return true;
     }
 
-    private removePlayerFromPenaltyBox(addedPlayer) {
-        this.inPenaltyBox[addedPlayer] = false;
-    }
-
-    private setPlayerPurse(index, number: number) {
-        this.purses[index] = number;
-    }
-
-    private setPlayerPlace(index, place: number) {
-        this.places[index] = place;
-    }
-
     public roll(roll: number) {
         console.log(this.currentPlayerName() + " is the current player");
         console.log("They have rolled a " + roll);
@@ -87,6 +75,10 @@ export class Game {
         return this.players[index];
     }
 
+    private setPlayerPlace(index, place: number) {
+        this.places[index] = place;
+    }
+
     private currentPlayerPlace() {
         return this.place(this.currentPlayer);
     }
@@ -99,12 +91,20 @@ export class Game {
         return this.purse(this.currentPlayer);
     }
 
+    private setPlayerPurse(index, number: number) {
+        this.purses[index] = number;
+    }
+
     public purse(currentPlayer: number) {
         return this.purses[currentPlayer];
     }
 
     private currentPlayerInPenaltyBox() {
         return this.isInPenaltyBox(this.currentPlayer);
+    }
+
+    private removePlayerFromPenaltyBox(addedPlayer) {
+        this.inPenaltyBox[addedPlayer] = false;
     }
 
     public isInPenaltyBox(currentPlayer: number) {
