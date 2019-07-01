@@ -43,12 +43,12 @@ export class Game {
                 this.isGettingOutOfPenaltyBox = true;
 
                 console.log(this.currentPlayerName() + " is getting out of the penalty box");
-                this.places[this.currentPlayer] = this.place(this.currentPlayer) + roll;
-                if (this.place(this.currentPlayer) > 11) {
-                    this.places[this.currentPlayer] = this.place(this.currentPlayer) - 12;
+                this.places[this.currentPlayer] = this.currentPlayerPlace() + roll;
+                if (this.currentPlayerPlace() > 11) {
+                    this.places[this.currentPlayer] = this.currentPlayerPlace() - 12;
                 }
 
-                console.log(this.currentPlayerName() + "'s new location is " + this.place(this.currentPlayer));
+                console.log(this.currentPlayerName() + "'s new location is " + this.currentPlayerPlace());
                 console.log("The category is " + this.currentCategory());
                 this.askQuestion();
             } else {
@@ -56,12 +56,12 @@ export class Game {
                 this.isGettingOutOfPenaltyBox = false;
             }
         } else {
-            this.places[this.currentPlayer] = this.place(this.currentPlayer) + roll;
-            if (this.place(this.currentPlayer) > 11) {
-                this.places[this.currentPlayer] = this.place(this.currentPlayer) - 12;
+            this.places[this.currentPlayer] = this.currentPlayerPlace() + roll;
+            if (this.currentPlayerPlace() > 11) {
+                this.places[this.currentPlayer] = this.currentPlayerPlace() - 12;
             }
 
-            console.log(this.currentPlayerName() + "'s new location is " + this.place(this.currentPlayer));
+            console.log(this.currentPlayerName() + "'s new location is " + this.currentPlayerPlace());
             console.log("The category is " + this.currentCategory());
             this.askQuestion();
         }
@@ -73,6 +73,10 @@ export class Game {
 
     public playerName(index: number) {
         return this.players[index];
+    }
+
+    private currentPlayerPlace() {
+        return this.place(this.currentPlayer);
     }
 
     public place(index: number) {
@@ -99,23 +103,23 @@ export class Game {
     }
 
     private currentCategory(): string {
-        if (this.place(this.currentPlayer) == 0)
+        if (this.currentPlayerPlace() == 0)
             return 'Pop';
-        if (this.place(this.currentPlayer) == 4)
+        if (this.currentPlayerPlace() == 4)
             return 'Pop';
-        if (this.place(this.currentPlayer) == 8)
+        if (this.currentPlayerPlace() == 8)
             return 'Pop';
-        if (this.place(this.currentPlayer) == 1)
+        if (this.currentPlayerPlace() == 1)
             return 'Science';
-        if (this.place(this.currentPlayer) == 5)
+        if (this.currentPlayerPlace() == 5)
             return 'Science';
-        if (this.place(this.currentPlayer) == 9)
+        if (this.currentPlayerPlace() == 9)
             return 'Science';
-        if (this.place(this.currentPlayer) == 2)
+        if (this.currentPlayerPlace() == 2)
             return 'Sports';
-        if (this.place(this.currentPlayer) == 6)
+        if (this.currentPlayerPlace() == 6)
             return 'Sports';
-        if (this.place(this.currentPlayer) == 10)
+        if (this.currentPlayerPlace() == 10)
             return 'Sports';
         return 'Rock';
     }
