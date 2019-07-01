@@ -170,20 +170,19 @@ export class Game {
     }
 
     public wasCorrectlyAnswered(): boolean {
-        if (this.currentPlayerNotInPenaltyBox() || this.isGettingOutOfPenaltyBox) {
-            console.log("Answer was correct!!!!");
-            this.purses[this.currentPlayer] += 1;
-            console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
+        let winner = this.currentPlayerNotInPenaltyBox() || this.isGettingOutOfPenaltyBox
+            ? this.correctAnswer()
+            : true;
+        this.rotatePlayer();
+        return winner;
+    }
 
-            var winner = this.didPlayerWin();
+    private correctAnswer() {
+        console.log("Answer was correct!!!!");
+        this.purses[this.currentPlayer] += 1;
+        console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
-            this.rotatePlayer();
-
-            return winner;
-        } else {
-            this.rotatePlayer();
-            return true;
-        }
+        return this.didPlayerWin();
     }
 
     private rotatePlayer() {
