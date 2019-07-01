@@ -67,7 +67,7 @@ export class Game {
         }
     }
 
-    private currentPlayerName() {
+    public currentPlayerName() {
         return this.playerName(this.currentPlayer);
     }
 
