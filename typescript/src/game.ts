@@ -26,12 +26,16 @@ export class Game {
         let addedPlayer = this.players.length - 1;
         this.setPlayerPlace(addedPlayer, 0);
         this.setPlayerPurse(addedPlayer, 0);
-        this.inPenaltyBox[addedPlayer] = false;
+        this.removePlayerFromPenaltyBox(addedPlayer);
 
         console.log(name + " was added");
         console.log("They are player number " + this.players.length);
 
         return true;
+    }
+
+    private removePlayerFromPenaltyBox(addedPlayer) {
+        this.inPenaltyBox[addedPlayer] = false;
     }
 
     private setPlayerPurse(index, number: number) {
