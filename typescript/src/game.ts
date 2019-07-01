@@ -115,6 +115,10 @@ export class Game {
         return this.isInPenaltyBox(this.currentPlayer);
     }
 
+    private putCurrentPlayerInPenaltxBox() {
+        this.inPenaltyBox[this.currentPlayer] = true;
+    }
+
     private removePlayerFromPenaltyBox(addedPlayer) {
         this.inPenaltyBox[addedPlayer] = false;
     }
@@ -163,7 +167,7 @@ export class Game {
     public wrongAnswer(): boolean {
         console.log('Question was incorrectly answered');
         console.log(this.currentPlayerName() + " was sent to the penalty box");
-        this.inPenaltyBox[this.currentPlayer] = true;
+        this.putCurrentPlayerInPenaltxBox();
 
         this.rotatePlayer();
         return true;
