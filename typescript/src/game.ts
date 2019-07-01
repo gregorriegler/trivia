@@ -24,14 +24,22 @@ export class Game {
     public add(name: string): boolean {
         this.players.push(name);
         let addedPlayer = this.players.length - 1;
-        this.places[addedPlayer] = 0;
-        this.purses[addedPlayer] = 0;
+        this.setPlayerPlace(addedPlayer, 0);
+        this.setPlayerPurse(addedPlayer, 0);
         this.inPenaltyBox[addedPlayer] = false;
 
         console.log(name + " was added");
         console.log("They are player number " + this.players.length);
 
         return true;
+    }
+
+    private setPlayerPurse(index, number: number) {
+        this.purses[index] = number;
+    }
+
+    private setPlayerPlace(index, place: number) {
+        this.places[index] = place;
     }
 
     public roll(roll: number) {
