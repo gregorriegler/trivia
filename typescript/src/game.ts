@@ -153,9 +153,7 @@ export class Game {
         console.log(this.currentPlayerName() + " was sent to the penalty box");
         this.inPenaltyBox[this.currentPlayer] = true;
 
-        this.currentPlayer += 1;
-        if (this.currentPlayer == this.players.length)
-            this.currentPlayer = 0;
+        this.rotatePlayer();
         return true;
     }
 
@@ -167,15 +165,11 @@ export class Game {
                 console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
                 var winner = this.didPlayerWin();
-                this.currentPlayer += 1;
-                if (this.currentPlayer == this.players.length)
-                    this.currentPlayer = 0;
+                this.rotatePlayer();
 
                 return winner;
             } else {
-                this.currentPlayer += 1;
-                if (this.currentPlayer == this.players.length)
-                    this.currentPlayer = 0;
+                this.rotatePlayer();
                 return true;
             }
         } else {
@@ -186,11 +180,15 @@ export class Game {
 
             var winner = this.didPlayerWin();
 
-            this.currentPlayer += 1;
-            if (this.currentPlayer == this.players.length)
-                this.currentPlayer = 0;
+            this.rotatePlayer();
 
             return winner;
         }
+    }
+
+    private rotatePlayer() {
+        this.currentPlayer += 1;
+        if (this.currentPlayer == this.players.length)
+            this.currentPlayer = 0;
     }
 }

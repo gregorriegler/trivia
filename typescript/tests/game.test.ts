@@ -63,5 +63,15 @@ describe('Game', () => {
         expect(game.currentPlayerPurse()).to.equal(1)
     });
 
+    it('should rotate players on correct answer, if not in penalty', () => {
+        let game = new Game()
+        game.add("player1")
+        game.add("player2")
+
+        game.wasCorrectlyAnswered()
+
+        expect(game.currentPlayerName()).to.equal("player2")
+    });
+
 
 });
