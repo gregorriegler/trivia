@@ -13,7 +13,6 @@ export class Game {
     private rockQuestions: Array<string> = [];
 
     constructor() {
-
         for (let i = 0; i < 50; i++) {
             this.popQuestions.push("Pop Question " + i);
             this.scienceQuestions.push("Science Question " + i);
@@ -21,6 +20,7 @@ export class Game {
             this.rockQuestions.push("Rock Question " + i);
         }
     }
+
     public add(name: string): boolean {
         this.players.push(name);
         this.places[this.howManyPlayers() - 1] = 0;
@@ -59,7 +59,6 @@ export class Game {
                 this.isGettingOutOfPenaltyBox = false;
             }
         } else {
-
             this.places[this.currentPlayer] = this.places[this.currentPlayer] + roll;
             if (this.places[this.currentPlayer] > 11) {
                 this.places[this.currentPlayer] = this.places[this.currentPlayer] - 12;
@@ -139,15 +138,11 @@ export class Game {
                     this.currentPlayer = 0;
                 return true;
             }
-
-
         } else {
-
             console.log("Answer was correct!!!!");
 
             this.purses[this.currentPlayer] += 1;
-            console.log(this.players[this.currentPlayer] + " now has " +
-                this.purses[this.currentPlayer] + " Gold Coins.");
+            console.log(this.players[this.currentPlayer] + " now has " + this.purses[this.currentPlayer] + " Gold Coins.");
 
             var winner = this.didPlayerWin();
 
@@ -158,5 +153,4 @@ export class Game {
             return winner;
         }
     }
-
 }
