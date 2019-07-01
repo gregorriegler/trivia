@@ -18,14 +18,9 @@ export class Game {
             this.popQuestions.push("Pop Question " + i);
             this.scienceQuestions.push("Science Question " + i);
             this.sportsQuestions.push("Sports Question " + i);
-            this.rockQuestions.push(this.createRockQuestion(i));
+            this.rockQuestions.push("Rock Question " + i);
         }
     }
-
-    private createRockQuestion(index: number): string {
-        return "Rock Question " + index;
-    }
-
     public add(name: string): boolean {
         this.players.push(name);
         this.places[this.howManyPlayers() - 1] = 0;
