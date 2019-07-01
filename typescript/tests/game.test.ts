@@ -95,4 +95,15 @@ describe('Game', () => {
 
         expect(win).to.be.false
     });
+
+    it('should make a player win, if answered correctly and in penalty box', () => {
+        let game = new Game()
+        game.add("player1")
+        game.wrongAnswer()
+
+
+        let win = game.wasCorrectlyAnswered()
+
+        expect(win).to.be.true
+    });
 });
