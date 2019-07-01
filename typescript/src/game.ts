@@ -107,6 +107,10 @@ export class Game {
         return this.purses[currentPlayer];
     }
 
+    private currentPlayerNotInPenaltyBox() {
+        return !this.currentPlayerInPenaltyBox();
+    }
+
     private currentPlayerInPenaltyBox() {
         return this.isInPenaltyBox(this.currentPlayer);
     }
@@ -166,15 +170,11 @@ export class Game {
     }
 
     public wasCorrectlyAnswered(): boolean {
-        if (this.currentPlayerInPenaltyBox()) {
-            if (this.isGettingOutOfPenaltyBox) {
-                return this.correctAnswer()
-            } else {
-                this.rotatePlayer();
-                return true;
-            }
-        } else {
+        if (this.currentPlayerNotInPenaltyBox() || this.isGettingOutOfPenaltyBox) {
             return this.correctAnswer();
+        } else {
+            this.rotatePlayer();
+            return true;
         }
     }
 
