@@ -38,7 +38,7 @@ export class Game {
         console.log(this.currentPlayerName() + " is the current player");
         console.log("They have rolled a " + roll);
 
-        if (this.isInPenaltyBox(this.currentPlayer)) {
+        if (this.currentPlayerInPenaltyBox()) {
             if (roll % 2 != 0) {
                 this.isGettingOutOfPenaltyBox = true;
 
@@ -83,12 +83,16 @@ export class Game {
         return this.places[index];
     }
 
+    private currentPlayerPurse() {
+        return this.purse(this.currentPlayer);
+    }
+
     public purse(currentPlayer: number) {
         return this.purses[currentPlayer];
     }
 
-    private currentPlayerPurse() {
-        return this.purse(this.currentPlayer);
+    private currentPlayerInPenaltyBox() {
+        return this.isInPenaltyBox(this.currentPlayer);
     }
 
     public isInPenaltyBox(currentPlayer: number) {
@@ -144,7 +148,7 @@ export class Game {
     }
 
     public wasCorrectlyAnswered(): boolean {
-        if (this.isInPenaltyBox(this.currentPlayer)) {
+        if (this.currentPlayerInPenaltyBox()) {
             if (this.isGettingOutOfPenaltyBox) {
                 console.log('Answer was correct!!!!');
                 this.purses[this.currentPlayer] += 1;
