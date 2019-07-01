@@ -160,30 +160,26 @@ export class Game {
     public wasCorrectlyAnswered(): boolean {
         if (this.currentPlayerInPenaltyBox()) {
             if (this.isGettingOutOfPenaltyBox) {
-                console.log('Answer was correct!!!!');
-                this.purses[this.currentPlayer] += 1;
-                console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
-
-                var winner = this.didPlayerWin();
-                this.rotatePlayer();
-
-                return winner;
+                this.correctAnswer()
             } else {
                 this.rotatePlayer();
                 return true;
             }
         } else {
-            console.log("Answer was correct!!!!");
-
-            this.purses[this.currentPlayer] += 1;
-            console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
-
-            var winner = this.didPlayerWin();
-
-            this.rotatePlayer();
-
-            return winner;
+            return this.correctAnswer();
         }
+    }
+
+    private correctAnswer() {
+        console.log("Answer was correct!!!!");
+        this.purses[this.currentPlayer] += 1;
+        console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
+
+        var winner = this.didPlayerWin();
+
+        this.rotatePlayer();
+
+        return winner;
     }
 
     private rotatePlayer() {
