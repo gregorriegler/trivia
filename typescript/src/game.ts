@@ -87,6 +87,10 @@ export class Game {
         return this.purses[currentPlayer];
     }
 
+    private currentPlayerPurse() {
+        return this.purse(this.currentPlayer);
+    }
+
     public isInPenaltyBox(currentPlayer: number) {
         return this.inPenaltyBox[currentPlayer];
     }
@@ -125,7 +129,7 @@ export class Game {
     }
 
     private didPlayerWin(): boolean {
-        return !(this.purse(this.currentPlayer) == 6)
+        return !(this.currentPlayerPurse() == 6)
     }
 
     public wrongAnswer(): boolean {
@@ -144,7 +148,7 @@ export class Game {
             if (this.isGettingOutOfPenaltyBox) {
                 console.log('Answer was correct!!!!');
                 this.purses[this.currentPlayer] += 1;
-                console.log(this.currentPlayerName() + " now has " + this.purse(this.currentPlayer) + " Gold Coins.");
+                console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
                 var winner = this.didPlayerWin();
                 this.currentPlayer += 1;
@@ -162,7 +166,7 @@ export class Game {
             console.log("Answer was correct!!!!");
 
             this.purses[this.currentPlayer] += 1;
-            console.log(this.currentPlayerName() + " now has " + this.purse(this.currentPlayer) + " Gold Coins.");
+            console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
             var winner = this.didPlayerWin();
 
