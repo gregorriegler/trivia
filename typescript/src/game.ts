@@ -145,7 +145,7 @@ export class Game {
     }
 
     private didPlayerWin(): boolean {
-        return !(this.currentPlayerPurse() == 6)
+        return this.currentPlayerPurse() != 6
     }
 
     public wrongAnswer(): boolean {
