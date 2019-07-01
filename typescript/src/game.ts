@@ -23,9 +23,10 @@ export class Game {
 
     public add(name: string): boolean {
         this.players.push(name);
-        this.places[this.players.length - 1] = 0;
-        this.purses[this.players.length - 1] = 0;
-        this.inPenaltyBox[this.players.length - 1] = false;
+        let addedPlayer = this.players.length - 1;
+        this.places[addedPlayer] = 0;
+        this.purses[addedPlayer] = 0;
+        this.inPenaltyBox[addedPlayer] = false;
 
         console.log(name + " was added");
         console.log("They are player number " + this.players.length);
@@ -42,12 +43,12 @@ export class Game {
                 this.isGettingOutOfPenaltyBox = true;
 
                 console.log(this.playerName(this.currentPlayer) + " is getting out of the penalty box");
-                this.places[this.currentPlayer] = this.places[this.currentPlayer] + roll;
-                if (this.places[this.currentPlayer] > 11) {
-                    this.places[this.currentPlayer] = this.places[this.currentPlayer] - 12;
+                this.places[this.currentPlayer] = this.place(this.currentPlayer) + roll;
+                if (this.place(this.currentPlayer) > 11) {
+                    this.places[this.currentPlayer] = this.place(this.currentPlayer) - 12;
                 }
 
-                console.log(this.playerName(this.currentPlayer) + "'s new location is " + this.places[this.currentPlayer]);
+                console.log(this.playerName(this.currentPlayer) + "'s new location is " + this.place(this.currentPlayer));
                 console.log("The category is " + this.currentCategory());
                 this.askQuestion();
             } else {
@@ -55,18 +56,22 @@ export class Game {
                 this.isGettingOutOfPenaltyBox = false;
             }
         } else {
-            this.places[this.currentPlayer] = this.places[this.currentPlayer] + roll;
-            if (this.places[this.currentPlayer] > 11) {
-                this.places[this.currentPlayer] = this.places[this.currentPlayer] - 12;
+            this.places[this.currentPlayer] = this.place(this.currentPlayer) + roll;
+            if (this.place(this.currentPlayer) > 11) {
+                this.places[this.currentPlayer] = this.place(this.currentPlayer) - 12;
             }
 
-            console.log(this.playerName(this.currentPlayer) + "'s new location is " + this.places[this.currentPlayer]);
+            console.log(this.playerName(this.currentPlayer) + "'s new location is " + this.place(this.currentPlayer));
             console.log("The category is " + this.currentCategory());
             this.askQuestion();
         }
     }
 
-    private playerName(index) {
+    public place(index) {
+        return this.places[index];
+    }
+
+    public playerName(index) {
         return this.players[index];
     }
 
@@ -82,23 +87,23 @@ export class Game {
     }
 
     private currentCategory(): string {
-        if (this.places[this.currentPlayer] == 0)
+        if (this.place(this.currentPlayer) == 0)
             return 'Pop';
-        if (this.places[this.currentPlayer] == 4)
+        if (this.place(this.currentPlayer) == 4)
             return 'Pop';
-        if (this.places[this.currentPlayer] == 8)
+        if (this.place(this.currentPlayer) == 8)
             return 'Pop';
-        if (this.places[this.currentPlayer] == 1)
+        if (this.place(this.currentPlayer) == 1)
             return 'Science';
-        if (this.places[this.currentPlayer] == 5)
+        if (this.place(this.currentPlayer) == 5)
             return 'Science';
-        if (this.places[this.currentPlayer] == 9)
+        if (this.place(this.currentPlayer) == 9)
             return 'Science';
-        if (this.places[this.currentPlayer] == 2)
+        if (this.place(this.currentPlayer) == 2)
             return 'Sports';
-        if (this.places[this.currentPlayer] == 6)
+        if (this.place(this.currentPlayer) == 6)
             return 'Sports';
-        if (this.places[this.currentPlayer] == 10)
+        if (this.place(this.currentPlayer) == 10)
             return 'Sports';
         return 'Rock';
     }
