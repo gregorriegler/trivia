@@ -87,7 +87,7 @@ export class Game {
         return this.places[index];
     }
 
-    private currentPlayerPurse() {
+    public currentPlayerPurse() {
         return this.purse(this.currentPlayer);
     }
 

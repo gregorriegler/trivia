@@ -54,4 +54,14 @@ describe('Game', () => {
         expect(game.currentPlayerName()).to.equal("player1")
     });
 
+    it('should increase purse on correct answer, if not in penalty', () => {
+        let game = new Game()
+        game.add("player1")
+
+        game.wasCorrectlyAnswered()
+
+        expect(game.currentPlayerPurse()).to.equal(1)
+    });
+
+
 });
