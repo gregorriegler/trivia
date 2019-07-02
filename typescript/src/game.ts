@@ -36,32 +36,30 @@ export class Game {
         console.log("They have rolled a " + roll);
 
         if (this.currentPlayer.inPenaltyBox) {
-            if (roll % 2 != 0) {
+            if (this.isEven(roll)) {
                 this.gettingOutOfPenaltyBox();
-
-                this.currentPlayer.addToPlace(roll)
-                if (this.currentPlayer.isPlaceBiggerThan11()) {
-                    this.currentPlayer.resetPlace()
-                }
-
-                console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
-                console.log("The category is " + this.currentPlayer.category());
-                this.askQuestion();
-
+                this.playRound(roll);
             } else {
                 this.notGettingOutOfPenaltyBox();
             }
         } else {
-            this.currentPlayer.addToPlace(roll)
-            if (this.currentPlayer.isPlaceBiggerThan11()) {
-                this.currentPlayer.resetPlace()
-            }
-
-            console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
-            console.log("The category is " + this.currentPlayer.category());
-            this.askQuestion();
-
+            this.playRound(roll);
         }
+    }
+
+    private isEven(roll: number) {
+        return roll % 2 != 0;
+    }
+
+    private playRound(roll: number) {
+        this.currentPlayer.addToPlace(roll)
+        if (this.currentPlayer.isPlaceBiggerThan11()) {
+            this.currentPlayer.resetPlace()
+        }
+
+        console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
+        console.log("The category is " + this.currentPlayer.category());
+        this.askQuestion();
     }
 
     public wrongAnswer(): boolean {
