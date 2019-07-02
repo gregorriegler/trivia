@@ -117,6 +117,27 @@ describe('Game', () => {
         expect(win).to.be.true
     });
 
+    let questions = [
+        ['Pop Question 0', [0, 4, 8]],
+        ['Science Question 0', [1, 5, 9]],
+        ['Sports Question 0', [2, 6, 10]],
+        ['Rock Question 0', [3, 7, 11]]
+    ]
+
+    for (const question of questions) {
+        let rolls:number[] = <number[]> question[1];
+        for (const roll of rolls) {
+            it('should ask: ' + question[0] + ' for roll ' + roll, () => {
+                let game = new GameTest()
+                game.add("player1")
+
+                game.roll(roll)
+
+                expect(game.shownQuestions).to.contain(question[0])
+            })
+        }
+    }
+
     class GameTest extends Game {
         public shownQuestions: Array<string> = [];
 
