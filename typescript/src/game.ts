@@ -154,7 +154,7 @@ export class Game {
     }
 
     private playerName(index: number) {
-        return this.players[index].getName();
+        return this.players[index].name;
     }
     private currentPlayerPlace() {
         return this.place(this.currentPlayer);
@@ -182,6 +182,7 @@ export class Game {
     private putCurrentPlayerInPenaltxBox() {
         this.players[this.currentPlayer].putIntoPenaltyBox();
     }
+
     private isInPenaltyBox(currentPlayer: number) {
         return this.players[currentPlayer].inPenaltyBox;
     }
@@ -192,22 +193,21 @@ export class Game {
 }
 
 class Player {
-    private name: string;
+    private _name: string;
     private place: number;
     private purse: number;
     private _inPenaltyBox: boolean;
 
     constructor(name: string) {
-        this.name = name;
+        this._name = name;
         this.place = 0;
         this.purse = 0;
         this._inPenaltyBox = false;
     }
 
-    public getName(): string {
-        return this.name;
+    get name(): string {
+        return this._name;
     }
-
 
     get inPenaltyBox(): boolean {
         return this._inPenaltyBox;
