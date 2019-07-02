@@ -128,14 +128,26 @@ export class Game {
     }
 
     private askQuestion(): void {
-        if (this.currentCategory() == 'Pop')
-            console.log(this.popQuestions.shift());
-        if (this.currentCategory() == 'Science')
-            console.log(this.scienceQuestions.shift());
-        if (this.currentCategory() == 'Sports')
-            console.log(this.sportsQuestions.shift());
-        if (this.currentCategory() == 'Rock')
-            console.log(this.rockQuestions.shift());
+        if (this.currentCategory() == 'Pop') {
+            let message = this.popQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Science') {
+            let message = this.scienceQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Sports') {
+            let message = this.sportsQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Rock') {
+            let message = this.rockQuestions.shift();
+            this.showQuestion(message);
+        }
+    }
+
+    private showQuestion(message) {
+        console.log(message);
     }
 
     private currentCategory(): string {
