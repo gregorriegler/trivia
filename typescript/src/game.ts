@@ -39,7 +39,6 @@ export class Game {
             if (roll % 2 != 0) {
                 this.gettingOutOfPenaltyBox();
 
-                console.log(this.currentPlayer.name + " is getting out of the penalty box");
                 this.currentPlayer.addToPlace(roll)
                 if (this.currentPlayer.isPlaceBiggerThan11()) {
                     this.currentPlayer.resetPlace()
@@ -48,8 +47,8 @@ export class Game {
                 console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
                 console.log("The category is " + this.currentPlayer.category());
                 this.askQuestion();
+
             } else {
-                console.log(this.currentPlayer.name + " is not getting out of the penalty box");
                 this.notGettingOutOfPenaltyBox();
             }
         } else {
@@ -61,6 +60,7 @@ export class Game {
             console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
             console.log("The category is " + this.currentPlayer.category());
             this.askQuestion();
+
         }
     }
 
@@ -95,10 +95,12 @@ export class Game {
 
     private notGettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = false;
+        console.log(this.currentPlayer.name + " is not getting out of the penalty box");
     }
 
     private gettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = true;
+        console.log(this.currentPlayer.name + " is getting out of the penalty box");
     }
 
     private rotatePlayer() {
