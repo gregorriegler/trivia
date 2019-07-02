@@ -1,7 +1,6 @@
 export class Game {
 
     private players: Array<Player> = [];
-    private places: Array<number> = [];
     private purses: Array<number> = [];
     private currentPlayer: number = 0;
     private isGettingOutOfPenaltyBox: boolean = false;
@@ -23,7 +22,6 @@ export class Game {
     public add(name: string): boolean {
         this.players.push(new Player(name))
         let addedPlayer = this.players.length - 1;
-        this.places[addedPlayer] = 0;
         this.purses[addedPlayer] = 0;
 
         console.log(name + " was added");
@@ -63,14 +61,6 @@ export class Game {
             console.log("The category is " + this.currentCategory());
             this.askQuestion();
         }
-    }
-
-    private addToPlace(roll: number) {
-        this.places[this.currentPlayer] = this.currentPlayerPlace() + roll;
-    }
-
-    private resetPlace() {
-        this.places[this.currentPlayer] = this.currentPlayerPlace() - 12;
     }
 
     public wrongAnswer(): boolean {
@@ -165,12 +155,16 @@ export class Game {
         return this.players[index].name;
     }
 
-    private currentPlayerPlace() {
-        return this.place(this.currentPlayer);
+    private addToPlace(roll: number) {
+        this.players[this.currentPlayer].addToPlace(roll)
     }
 
-    private place(index: number) {
-        return this.places[index];
+    private resetPlace() {
+        this.players[this.currentPlayer].resetPlace()
+    }
+
+    private currentPlayerPlace() {
+        return this.players[this.currentPlayer].place;
     }
 
     private currentPlayerPurse() {
@@ -203,13 +197,13 @@ export class Game {
 
 class Player {
     private _name: string;
-    private place: number;
+    private _place: number;
     private purse: number;
     private _inPenaltyBox: boolean;
 
     constructor(name: string) {
         this._name = name;
-        this.place = 0;
+        this._place = 0;
         this.purse = 0;
         this._inPenaltyBox = false;
     }
@@ -218,11 +212,23 @@ class Player {
         return this._name;
     }
 
+    get place(): number {
+        return this._place;
+    }
+
     get inPenaltyBox(): boolean {
         return this._inPenaltyBox;
     }
 
     putIntoPenaltyBox() {
         this._inPenaltyBox = true;
+    }
+
+    addToPlace(roll: number) {
+        this._place += roll;
+    }
+
+    resetPlace() {
+        this._place -= 12;
     }
 }
