@@ -21,6 +21,51 @@ export class Game {
         }
     }
 
+    private askQuestion(): void {
+        if (this.currentCategory() == 'Pop') {
+            let message = this.popQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Science') {
+            let message = this.scienceQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Sports') {
+            let message = this.sportsQuestions.shift();
+            this.showQuestion(message);
+        }
+        if (this.currentCategory() == 'Rock') {
+            let message = this.rockQuestions.shift();
+            this.showQuestion(message);
+        }
+    }
+
+    private currentCategory(): string {
+        if (this.currentPlayerPlace() == 0)
+            return 'Pop';
+        if (this.currentPlayerPlace() == 4)
+            return 'Pop';
+        if (this.currentPlayerPlace() == 8)
+            return 'Pop';
+        if (this.currentPlayerPlace() == 1)
+            return 'Science';
+        if (this.currentPlayerPlace() == 5)
+            return 'Science';
+        if (this.currentPlayerPlace() == 9)
+            return 'Science';
+        if (this.currentPlayerPlace() == 2)
+            return 'Sports';
+        if (this.currentPlayerPlace() == 6)
+            return 'Sports';
+        if (this.currentPlayerPlace() == 10)
+            return 'Sports';
+        return 'Rock';
+    }
+
+    public showQuestion(message) {
+        console.log(message);
+    }
+
     public add(name: string): boolean {
         this.players.push(name);
         let addedPlayer = this.players.length - 1;
@@ -125,51 +170,6 @@ export class Game {
 
     public isInPenaltyBox(currentPlayer: number) {
         return this.inPenaltyBox[currentPlayer];
-    }
-
-    private askQuestion(): void {
-        if (this.currentCategory() == 'Pop') {
-            let message = this.popQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Science') {
-            let message = this.scienceQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Sports') {
-            let message = this.sportsQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Rock') {
-            let message = this.rockQuestions.shift();
-            this.showQuestion(message);
-        }
-    }
-
-    public showQuestion(message) {
-        console.log(message);
-    }
-
-    private currentCategory(): string {
-        if (this.currentPlayerPlace() == 0)
-            return 'Pop';
-        if (this.currentPlayerPlace() == 4)
-            return 'Pop';
-        if (this.currentPlayerPlace() == 8)
-            return 'Pop';
-        if (this.currentPlayerPlace() == 1)
-            return 'Science';
-        if (this.currentPlayerPlace() == 5)
-            return 'Science';
-        if (this.currentPlayerPlace() == 9)
-            return 'Science';
-        if (this.currentPlayerPlace() == 2)
-            return 'Sports';
-        if (this.currentPlayerPlace() == 6)
-            return 'Sports';
-        if (this.currentPlayerPlace() == 10)
-            return 'Sports';
-        return 'Rock';
     }
 
     private didPlayerWin(): boolean {
