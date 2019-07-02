@@ -62,7 +62,7 @@ export class Game {
         return 'Rock';
     }
 
-    public showQuestion(message) {
+    private showQuestion(message) {
         console.log(message);
     }
 
@@ -112,19 +112,19 @@ export class Game {
         }
     }
 
-    public notGettingOutOfPenaltyBox() {
+    private notGettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = false;
     }
 
-    public gettingOutOfPenaltyBox() {
+    private gettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = true;
     }
 
-    public currentPlayerName() {
+    private currentPlayerName() {
         return this.playerName(this.currentPlayer);
     }
 
-    public playerName(index: number) {
+    private playerName(index: number) {
         return this.players[index];
     }
 
@@ -136,11 +136,11 @@ export class Game {
         return this.place(this.currentPlayer);
     }
 
-    public place(index: number) {
+    private place(index: number) {
         return this.places[index];
     }
 
-    public currentPlayerPurse() {
+    private currentPlayerPurse() {
         return this.purse(this.currentPlayer);
     }
 
@@ -148,7 +148,7 @@ export class Game {
         this.purses[index] = number;
     }
 
-    public purse(currentPlayer: number) {
+    private purse(currentPlayer: number) {
         return this.purses[currentPlayer];
     }
 
@@ -168,7 +168,7 @@ export class Game {
         this.inPenaltyBox[addedPlayer] = false;
     }
 
-    public isInPenaltyBox(currentPlayer: number) {
+    private isInPenaltyBox(currentPlayer: number) {
         return this.inPenaltyBox[currentPlayer];
     }
 

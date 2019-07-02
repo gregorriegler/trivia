@@ -133,7 +133,7 @@ describe('Game', () => {
         let game = new Game()
         game.add("player1")
         game.wrongAnswer()
-        game.gettingOutOfPenaltyBox()
+        game.roll(3)
 
         let win = game.wasCorrectlyAnswered()
 
