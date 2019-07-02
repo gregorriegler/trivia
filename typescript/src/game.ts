@@ -1,7 +1,6 @@
 export class Game {
 
     private players: Array<Player> = [];
-    private purses: Array<number> = [];
     private currentPlayer: number = 0;
     private isGettingOutOfPenaltyBox: boolean = false;
 
@@ -21,8 +20,6 @@ export class Game {
 
     public add(name: string): boolean {
         this.players.push(new Player(name))
-        let addedPlayer = this.players.length - 1;
-        this.purses[addedPlayer] = 0;
 
         console.log(name + " was added");
         console.log("They are player number " + this.players.length);
@@ -123,7 +120,7 @@ export class Game {
 
     private correctAnswer() {
         console.log("Answer was correct!!!!");
-        this.purses[this.currentPlayer] += 1;
+        this.players[this.currentPlayer].increasePurse();
         console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
         return this.didPlayerWin();
@@ -148,13 +145,8 @@ export class Game {
     }
 
     private currentPlayerName() {
-        return this.playerName(this.currentPlayer);
+        return this.players[this.currentPlayer].name;
     }
-
-    private playerName(index: number) {
-        return this.players[index].name;
-    }
-
     private addToPlace(roll: number) {
         this.players[this.currentPlayer].addToPlace(roll)
     }
@@ -170,8 +162,9 @@ export class Game {
     private currentPlayerPurse() {
         return this.purse(this.currentPlayer);
     }
+
     private purse(currentPlayer: number) {
-        return this.purses[currentPlayer];
+        return this.players[currentPlayer].purse;
     }
 
     private currentPlayerNotInPenaltyBox() {
@@ -198,13 +191,13 @@ export class Game {
 class Player {
     private _name: string;
     private _place: number;
-    private purse: number;
+    private _purse: number;
     private _inPenaltyBox: boolean;
 
     constructor(name: string) {
         this._name = name;
         this._place = 0;
-        this.purse = 0;
+        this._purse = 0;
         this._inPenaltyBox = false;
     }
 
@@ -214,6 +207,10 @@ class Player {
 
     get place(): number {
         return this._place;
+    }
+
+    get purse(): number {
+        return this._purse;
     }
 
     get inPenaltyBox(): boolean {
@@ -230,5 +227,9 @@ class Player {
 
     resetPlace() {
         this._place -= 12;
+    }
+
+    increasePurse() {
+        this._purse += 1;
     }
 }
