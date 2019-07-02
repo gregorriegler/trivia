@@ -37,18 +37,17 @@ export class Game {
 
         if (this.currentPlayer.inPenaltyBox) {
             if (this.isEven(roll)) {
-                this.gettingOutOfPenaltyBox();
-                this.playRound(roll);
-            } else {
                 this.notGettingOutOfPenaltyBox();
+                return;
             }
-        } else {
-            this.playRound(roll);
+            this.gettingOutOfPenaltyBox();
         }
+
+        this.playRound(roll);
     }
 
     private isEven(roll: number) {
-        return roll % 2 != 0;
+        return roll % 2 == 0;
     }
 
     private playRound(roll: number) {
