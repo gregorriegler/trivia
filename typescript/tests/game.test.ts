@@ -133,7 +133,7 @@ describe('Game', () => {
 
                 game.roll(roll)
 
-                expect(game.shownQuestions).to.contain(question[0])
+                expect(game.shownQuestions).to.include(question[0])
             })
         }
     }
