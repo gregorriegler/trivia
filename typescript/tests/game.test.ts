@@ -1,36 +1,28 @@
 import {expect} from 'chai';
-import {describe, it} from 'mocha';
+import {describe, it, beforeEach} from 'mocha';
 import {Game} from '../src/game';
 
 describe('Game', () => {
-    it('should add players and initialize them', () => {
+
+    beforeEach(function () {
+        console.messages = "";
+    })
+
+    it('should add players', () => {
         let game = new Game();
 
         game.add("player1");
         game.add("player2");
         game.add("player3");
 
-        expect(game.playerName(0)).to.equal("player1")
-        expect(game.playerName(1)).to.equal("player2")
-        expect(game.playerName(2)).to.equal("player3")
-        expect(game.place(0)).to.equal(0)
-        expect(game.place(1)).to.equal(0)
-        expect(game.place(2)).to.equal(0)
-        expect(game.purse(0)).to.equal(0)
-        expect(game.purse(1)).to.equal(0)
-        expect(game.purse(2)).to.equal(0)
-        expect(game.isInPenaltyBox(0)).to.equal(false)
-        expect(game.isInPenaltyBox(1)).to.equal(false)
-        expect(game.isInPenaltyBox(2)).to.equal(false)
-    });
-
-    it('should put player in penalty box on wrong answer', () => {
-        let game = new Game()
-        game.add("player1")
-
-        game.wrongAnswer()
-
-        expect(game.isInPenaltyBox(0)).to.equal(true)
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player2 was added\n" +
+            "They are player number 2\n" +
+            "player3 was added\n" +
+            "They are player number 3\n"
+        )
     });
 
     it('should switch to next player on wrong answer', () => {
@@ -40,7 +32,14 @@ describe('Game', () => {
 
         game.wrongAnswer()
 
-        expect(game.currentPlayerName()).to.equal("player2")
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player2 was added\n" +
+            "They are player number 2\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n"
+        )
     });
 
     it('should rotate players on wrong answers', () => {
@@ -51,26 +50,50 @@ describe('Game', () => {
         game.wrongAnswer()
         game.wrongAnswer()
 
-        expect(game.currentPlayerName()).to.equal("player1")
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player2 was added\n" +
+            "They are player number 2\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n" +
+            "Question was incorrectly answered\n" +
+            "player2 was sent to the penalty box\n"
+        )
     });
 
-    it('should increase purse on correct answer, if not in penalty', () => {
+    it('should increase gold count on correct answer', () => {
         let game = new Game()
         game.add("player1")
 
         game.wasCorrectlyAnswered()
 
-        expect(game.currentPlayerPurse()).to.equal(1)
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "Answer was correct!!!!\n" +
+            "player1 now has 1 Gold Coins.\n"
+        )
     });
 
-    it('should rotate players on correct answer, if not in penalty', () => {
+    it('should rotate players on correct answer', () => {
         let game = new Game()
         game.add("player1")
         game.add("player2")
 
         game.wasCorrectlyAnswered()
+        game.wasCorrectlyAnswered()
 
-        expect(game.currentPlayerName()).to.equal("player2")
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player2 was added\n" +
+            "They are player number 2\n" +
+            "Answer was correct!!!!\n" +
+            "player1 now has 1 Gold Coins.\n" +
+            "Answer was correct!!!!\n" +
+            "player2 now has 1 Gold Coins.\n"
+        )
     });
 
     it('should make a player win, if player purse not 6', () => {
@@ -118,51 +141,39 @@ describe('Game', () => {
     });
 
     let questions = [
-        ['Pop Question 0', [0, 4, 8]],
-        ['Science Question 0', [1, 5, 9]],
-        ['Sports Question 0', [2, 6, 10]],
-        ['Rock Question 0', [3, 7, 11]]
+        ['Pop Question 0', 'Pop', [0, 4, 8]],
+        ['Science Question 0', 'Science', [1, 5, 9]],
+        ['Sports Question 0', 'Sports', [2, 6, 10]],
+        ['Rock Question 0', 'Rock', [3, 7, 11]]
     ]
 
     for (const question of questions) {
-        let rolls:number[] = <number[]> question[1];
+        let rolls: number[] = <number[]>question[2];
         for (const roll of rolls) {
             it('should ask: ' + question[0] + ' for roll ' + roll, () => {
-                let game = new GameTest()
+                let game = new Game()
                 game.add("player1")
 
                 game.roll(roll)
 
-                expect(game.shownQuestions).to.include(question[0])
+                expect(console.messages).to.eq(
+                    "player1 was added\n" +
+                    "They are player number 1\n" +
+                    "player1 is the current player\n" +
+                    "They have rolled a " + roll + "\n" +
+                    "player1's new location is " + roll + "\n" +
+                    "The category is " + question[1] + "\n" +
+                    question[0] + "\n"
+                )
             })
-        }
-    }
-
-    let secondRollQuestions = [
-        ['Pop Question 1', [0, 4, 8]]
-    ]
-
-    for (const question of secondRollQuestions) {
-        let rolls:number[] = <number[]> question[1];
-        for (const roll of rolls) {
-            it('should ask: ' + question[0] + ' for 2 rolls ' + roll, () => {
-                let game = new GameTest()
-                game.add("player1")
-
-                game.roll(roll)
-                game.roll(roll)
-
-                expect(game.shownQuestions).to.include(question[0])
-            })
-        }
-    }
-
-    class GameTest extends Game {
-        public shownQuestions: Array<string> = [];
-
-        showQuestion(message) {
-            this.shownQuestions.push(message)
-            super.showQuestion(message)
         }
     }
 });
+
+var log = console.log;
+declare var console;
+console.messages = "";
+console.log = function (message) {
+    this.messages += message + "\n"
+    log(message)
+}
