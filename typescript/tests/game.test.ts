@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {describe, it, beforeEach} from 'mocha';
+import {describe, it, fit, beforeEach} from 'mocha';
 import {Game} from '../src/game';
 
 describe('Game', () => {
@@ -138,6 +138,96 @@ describe('Game', () => {
         let win = game.wasCorrectlyAnswered()
 
         expect(win).to.be.true
+    });
+
+    it('should keep a player in penalty box', () => {
+        let game = new Game()
+        game.add("player1")
+        game.wrongAnswer()
+
+        game.roll(2)
+
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 2\n" +
+            "player1 is not getting out of the penalty box\n"
+        )
+    });
+
+    it('should keep a player in penalty box', () => {
+        let game = new Game()
+        game.add("player1")
+        game.wrongAnswer()
+
+        game.roll(3)
+
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 3\n" +
+            "player1 is getting out of the penalty box\n" +
+            "player1's new location is 3\n" +
+            "The category is Rock\n" +
+            "Rock Question 0\n"
+        )
+    });
+
+    it('should keep a player in penalty box', () => {
+        let game = new Game()
+        game.add("player1")
+        game.roll(12)
+        game.wrongAnswer()
+
+        game.roll(2)
+
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 12\n" +
+            "player1's new location is 0\n" +
+            "The category is Pop\n" +
+            "Pop Question 0\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 2\n" +
+            "player1 is not getting out of the penalty box\n"
+        )
+    });
+
+    it('should keep a player in penalty box', () => {
+        let game = new Game()
+        game.add("player1")
+        game.roll(11)
+        game.wrongAnswer()
+
+        game.roll(3)
+
+        expect(console.messages).to.eq(
+            "player1 was added\n" +
+            "They are player number 1\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 11\n" +
+            "player1's new location is 11\n" +
+            "The category is Rock\n" +
+            "Rock Question 0\n" +
+            "Question was incorrectly answered\n" +
+            "player1 was sent to the penalty box\n" +
+            "player1 is the current player\n" +
+            "They have rolled a 3\n" +
+            "player1 is getting out of the penalty box\n" +
+            "player1's new location is 2\n" +
+            "The category is Sports\n" +
+            "Sports Question 0\n"
+        )
     });
 
     let questions = [
