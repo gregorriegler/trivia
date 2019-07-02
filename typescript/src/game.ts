@@ -1,6 +1,6 @@
 export class Game {
 
-    private players: Array<string> = [];
+    private players: Array<Player> = [];
     private places: Array<number> = [];
     private purses: Array<number> = [];
     private inPenaltyBox: Array<boolean> = [];
@@ -22,7 +22,7 @@ export class Game {
     }
 
     public add(name: string): boolean {
-        this.players.push(name);
+        this.players.push(new Player(name))
         let addedPlayer = this.players.length - 1;
         this.setPlayerPlace(addedPlayer, 0);
         this.setPlayerPurse(addedPlayer, 0);
@@ -156,7 +156,7 @@ export class Game {
     }
 
     private playerName(index: number) {
-        return this.players[index];
+        return this.players[index].getName();
     }
 
     private setPlayerPlace(index, place: number) {
@@ -205,5 +205,23 @@ export class Game {
 
     private showQuestion(message) {
         console.log(message);
+    }
+}
+
+class Player {
+    private name: string;
+    private place: number;
+    private purse: number;
+    private inPenaltyBox: boolean;
+
+    constructor(name: string) {
+        this.name = name;
+        this.place = 0;
+        this.purse = 0;
+        this.inPenaltyBox = false;
+    }
+
+    public getName(): string {
+        return this.name;
     }
 }
