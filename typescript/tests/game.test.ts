@@ -116,4 +116,13 @@ describe('Game', () => {
 
         expect(win).to.be.true
     });
+
+    class GameTest extends Game {
+        public shownQuestions: Array<string> = [];
+
+        showQuestion(message) {
+            this.shownQuestions.push(message)
+            super.showQuestion(message)
+        }
+    }
 });

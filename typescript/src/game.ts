@@ -146,7 +146,7 @@ export class Game {
         }
     }
 
-    private showQuestion(message) {
+    public showQuestion(message) {
         console.log(message);
     }
 
