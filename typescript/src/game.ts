@@ -5,17 +5,19 @@ export class Game {
     private currentPlayer: Player;
     private isGettingOutOfPenaltyBox: boolean = false;
 
-    private popQuestions: Array<string> = [];
-    private scienceQuestions: Array<string> = [];
-    private sportsQuestions: Array<string> = [];
-    private rockQuestions: Array<string> = [];
+    private questions = {
+        "Pop": [],
+        "Science": [],
+        "Sports": [],
+        "Rock": []
+    };
 
     constructor() {
         for (let i = 0; i < 50; i++) {
-            this.popQuestions.push("Pop Question " + i);
-            this.scienceQuestions.push("Science Question " + i);
-            this.sportsQuestions.push("Sports Question " + i);
-            this.rockQuestions.push("Rock Question " + i);
+            this.questions.Pop.push("Pop Question " + i);
+            this.questions.Science.push("Science Question " + i);
+            this.questions.Sports.push("Sports Question " + i);
+            this.questions.Rock.push("Rock Question " + i);
         }
     }
 
@@ -44,7 +46,7 @@ export class Game {
                 }
 
                 console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
-                console.log("The category is " + this.currentCategory());
+                console.log("The category is " + this.currentPlayer.category());
                 this.askQuestion();
             } else {
                 console.log(this.currentPlayer.name + " is not getting out of the penalty box");
@@ -57,7 +59,7 @@ export class Game {
             }
 
             console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
-            console.log("The category is " + this.currentCategory());
+            console.log("The category is " + this.currentPlayer.category());
             this.askQuestion();
         }
     }
@@ -80,44 +82,7 @@ export class Game {
     }
 
     private askQuestion(): void {
-        if (this.currentCategory() == 'Pop') {
-            let message = this.popQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Science') {
-            let message = this.scienceQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Sports') {
-            let message = this.sportsQuestions.shift();
-            this.showQuestion(message);
-        }
-        if (this.currentCategory() == 'Rock') {
-            let message = this.rockQuestions.shift();
-            this.showQuestion(message);
-        }
-    }
-
-    private currentCategory(): string {
-        if (this.currentPlayer.place == 0)
-            return 'Pop';
-        if (this.currentPlayer.place == 4)
-            return 'Pop';
-        if (this.currentPlayer.place == 8)
-            return 'Pop';
-        if (this.currentPlayer.place == 1)
-            return 'Science';
-        if (this.currentPlayer.place == 5)
-            return 'Science';
-        if (this.currentPlayer.place == 9)
-            return 'Science';
-        if (this.currentPlayer.place == 2)
-            return 'Sports';
-        if (this.currentPlayer.place == 6)
-            return 'Sports';
-        if (this.currentPlayer.place == 10)
-            return 'Sports';
-        return 'Rock';
+        this.showQuestion(this.questions[this.currentPlayer.category()].shift());
     }
 
     private correctAnswer() {
@@ -200,5 +165,27 @@ class Player {
 
     didWin(): boolean {
         return this._purse != 6
+    }
+
+    category(): string {
+        if (this._place == 0)
+            return 'Pop';
+        if (this._place == 4)
+            return 'Pop';
+        if (this._place == 8)
+            return 'Pop';
+        if (this._place == 1)
+            return 'Science';
+        if (this._place == 5)
+            return 'Science';
+        if (this._place == 9)
+            return 'Science';
+        if (this._place == 2)
+            return 'Sports';
+        if (this._place == 6)
+            return 'Sports';
+        if (this._place == 10)
+            return 'Sports';
+        return 'Rock';
     }
 }
