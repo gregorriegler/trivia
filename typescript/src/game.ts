@@ -36,9 +36,9 @@ export class Game {
                 this.gettingOutOfPenaltyBox();
 
                 console.log(this.currentPlayerName() + " is getting out of the penalty box");
-                this.addToPlace(roll);
-                if (this.currentPlayerPlace() > 11) {
-                    this.resetPlace();
+                this.addToCurrentPlayerPlace(roll);
+                if (this.getCurrentPlayer().isPlaceBiggerThan11()) {
+                    this.resetCurrentPlayerPlace();
                 }
 
                 console.log(this.currentPlayerName() + "'s new location is " + this.currentPlayerPlace());
@@ -49,9 +49,9 @@ export class Game {
                 this.notGettingOutOfPenaltyBox();
             }
         } else {
-            this.addToPlace(roll);
-            if (this.currentPlayerPlace() > 11) {
-                this.resetPlace();
+            this.addToCurrentPlayerPlace(roll);
+            if (this.getCurrentPlayer().isPlaceBiggerThan11()) {
+                this.resetCurrentPlayerPlace();
             }
 
             console.log(this.currentPlayerName() + "'s new location is " + this.currentPlayerPlace());
@@ -63,7 +63,7 @@ export class Game {
     public wrongAnswer(): boolean {
         console.log('Question was incorrectly answered');
         console.log(this.currentPlayerName() + " was sent to the penalty box");
-        this.putCurrentPlayerInPenaltxBox();
+        this.getCurrentPlayer().putIntoPenaltyBox();
 
         this.rotatePlayer();
         return true;
@@ -123,11 +123,7 @@ export class Game {
         this.players[this.currentPlayer].increasePurse();
         console.log(this.currentPlayerName() + " now has " + this.currentPlayerPurse() + " Gold Coins.");
 
-        return this.didPlayerWin();
-    }
-
-    private didPlayerWin(): boolean {
-        return this.currentPlayerPurse() != 6
+        return this.getCurrentPlayer().didWin();
     }
 
     private rotatePlayer() {
@@ -145,42 +141,35 @@ export class Game {
     }
 
     private currentPlayerName() {
-        return this.players[this.currentPlayer].name;
-    }
-    private addToPlace(roll: number) {
-        this.players[this.currentPlayer].addToPlace(roll)
+        return this.getCurrentPlayer().name;
     }
 
-    private resetPlace() {
-        this.players[this.currentPlayer].resetPlace()
+    private addToCurrentPlayerPlace(roll: number) {
+        this.getCurrentPlayer().addToPlace(roll)
+    }
+
+    private resetCurrentPlayerPlace() {
+        this.getCurrentPlayer().resetPlace()
     }
 
     private currentPlayerPlace() {
-        return this.players[this.currentPlayer].place;
+        return this.getCurrentPlayer().place;
     }
 
     private currentPlayerPurse() {
-        return this.purse(this.currentPlayer);
-    }
-
-    private purse(currentPlayer: number) {
-        return this.players[currentPlayer].purse;
+        return this.getCurrentPlayer().purse;
     }
 
     private currentPlayerNotInPenaltyBox() {
-        return !this.currentPlayerInPenaltyBox();
+        return !this.getCurrentPlayer().inPenaltyBox;
     }
 
     private currentPlayerInPenaltyBox() {
-        return this.isInPenaltyBox(this.currentPlayer);
+        return this.getCurrentPlayer().inPenaltyBox;
     }
 
-    private putCurrentPlayerInPenaltxBox() {
-        this.players[this.currentPlayer].putIntoPenaltyBox();
-    }
-
-    private isInPenaltyBox(currentPlayer: number) {
-        return this.players[currentPlayer].inPenaltyBox;
+    private getCurrentPlayer() {
+        return this.players[this.currentPlayer];
     }
 
     private showQuestion(message) {
@@ -229,7 +218,15 @@ class Player {
         this._place -= 12;
     }
 
+    isPlaceBiggerThan11(): boolean {
+        return this._place > 11;
+    }
+
     increasePurse() {
         this._purse += 1;
+    }
+
+    didWin(): boolean {
+        return this._purse != 6
     }
 }
