@@ -138,6 +138,25 @@ describe('Game', () => {
         }
     }
 
+    let secondRollQuestions = [
+        ['Pop Question 1', [0, 4, 8]]
+    ]
+
+    for (const question of secondRollQuestions) {
+        let rolls:number[] = <number[]> question[1];
+        for (const roll of rolls) {
+            it('should ask: ' + question[0] + ' for 2 rolls ' + roll, () => {
+                let game = new GameTest()
+                game.add("player1")
+
+                game.roll(roll)
+                game.roll(roll)
+
+                expect(game.shownQuestions).to.include(question[0])
+            })
+        }
+    }
+
     class GameTest extends Game {
         public shownQuestions: Array<string> = [];
 
