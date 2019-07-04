@@ -3,7 +3,7 @@ export class Game {
     private players: Array<Player> = [];
     private currentPlayerIndex: number = 0;
     private currentPlayer: Player;
-    private isGettingOutOfPenaltyBox: boolean = false;
+    private isGettingOutOfPrison: boolean = false;
 
     private questions = {
         "Pop": [],
@@ -35,12 +35,12 @@ export class Game {
         this.print(this.currentPlayer.name + " is the current player");
         this.print("They have rolled a " + roll);
 
-        if (this.currentPlayer.inPenaltyBox) {
+        if (this.currentPlayer.inPrison) {
             if (this.isEven(roll)) {
-                this.notGettingOutOfPenaltyBox();
+                this.notGettingOutOfPrison();
                 return;
             }
-            this.gettingOutOfPenaltyBox();
+            this.gettingOutOfPrison();
         }
 
         this.playRound(roll);
@@ -64,14 +64,14 @@ export class Game {
     public wrongAnswer(): boolean {
         this.print('Question was incorrectly answered');
         this.print(this.currentPlayer.name + " was sent to the penalty box");
-        this.currentPlayer.putIntoPenaltyBox();
+        this.currentPlayer.putIntoPrison();
 
         this.rotatePlayer();
         return true;
     }
 
     public wasCorrectlyAnswered(): boolean {
-        let winner = !this.currentPlayer.inPenaltyBox || this.isGettingOutOfPenaltyBox
+        let winner = !this.currentPlayer.inPrison || this.isGettingOutOfPrison
             ? this.correctAnswer()
             : true;
         this.rotatePlayer();
@@ -90,13 +90,13 @@ export class Game {
         return this.currentPlayer.didWin();
     }
 
-    private notGettingOutOfPenaltyBox() {
-        this.isGettingOutOfPenaltyBox = false;
+    private notGettingOutOfPrison() {
+        this.isGettingOutOfPrison = false;
         this.print(this.currentPlayer.name + " is not getting out of the penalty box");
     }
 
-    private gettingOutOfPenaltyBox() {
-        this.isGettingOutOfPenaltyBox = true;
+    private gettingOutOfPrison() {
+        this.isGettingOutOfPrison = true;
         this.print(this.currentPlayer.name + " is getting out of the penalty box");
     }
 
@@ -117,13 +117,13 @@ class Player {
     private readonly _name: string;
     private _place: number;
     private _purse: number;
-    private _inPenaltyBox: boolean;
+    private _inPrison: boolean;
 
     constructor(name: string) {
         this._name = name;
         this._place = 0;
         this._purse = 0;
-        this._inPenaltyBox = false;
+        this._inPrison = false;
     }
 
     get name(): string {
@@ -138,12 +138,12 @@ class Player {
         return this._purse;
     }
 
-    get inPenaltyBox(): boolean {
-        return this._inPenaltyBox;
+    get inPrison(): boolean {
+        return this._inPrison;
     }
 
-    putIntoPenaltyBox() {
-        this._inPenaltyBox = true;
+    putIntoPrison() {
+        this._inPrison = true;
     }
 
     addToPlace(roll: number) {
