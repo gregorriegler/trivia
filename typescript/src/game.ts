@@ -107,6 +107,7 @@ export class Game {
 
         this.currentPlayer = this.players[this.currentPlayerIndex];
     }
+
     private print(message) {
         console.log(message);
     }
