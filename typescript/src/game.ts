@@ -25,15 +25,19 @@ export class Game {
         this.players.push(new Player(name))
         this.currentPlayer = this.players[0];
 
-        console.log(name + " was added");
-        console.log("They are player number " + this.players.length);
+        this.print(name + " was added");
+        this.print("They are player number " + this.players.length);
 
         return true;
     }
 
+    private print(message) {
+        console.log(message);
+    }
+
     public roll(roll: number) {
-        console.log(this.currentPlayer.name + " is the current player");
-        console.log("They have rolled a " + roll);
+        this.print(this.currentPlayer.name + " is the current player");
+        this.print("They have rolled a " + roll);
 
         if (this.currentPlayer.inPenaltyBox) {
             if (this.isEven(roll)) {
@@ -56,14 +60,14 @@ export class Game {
             this.currentPlayer.resetPlace()
         }
 
-        console.log(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
-        console.log("The category is " + this.currentPlayer.category());
+        this.print(this.currentPlayer.name + "'s new location is " + this.currentPlayer.place);
+        this.print("The category is " + this.currentPlayer.category());
         this.askQuestion();
     }
 
     public wrongAnswer(): boolean {
-        console.log('Question was incorrectly answered');
-        console.log(this.currentPlayer.name + " was sent to the penalty box");
+        this.print('Question was incorrectly answered');
+        this.print(this.currentPlayer.name + " was sent to the penalty box");
         this.currentPlayer.putIntoPenaltyBox();
 
         this.rotatePlayer();
@@ -83,21 +87,21 @@ export class Game {
     }
 
     private correctAnswer() {
-        console.log("Answer was correct!!!!");
+        this.print("Answer was correct!!!!");
         this.currentPlayer.increasePurse();
-        console.log(this.currentPlayer.name + " now has " + this.currentPlayer.purse + " Gold Coins.");
+        this.print(this.currentPlayer.name + " now has " + this.currentPlayer.purse + " Gold Coins.");
 
         return this.currentPlayer.didWin();
     }
 
     private notGettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = false;
-        console.log(this.currentPlayer.name + " is not getting out of the penalty box");
+        this.print(this.currentPlayer.name + " is not getting out of the penalty box");
     }
 
     private gettingOutOfPenaltyBox() {
         this.isGettingOutOfPenaltyBox = true;
-        console.log(this.currentPlayer.name + " is getting out of the penalty box");
+        this.print(this.currentPlayer.name + " is getting out of the penalty box");
     }
 
     private rotatePlayer() {
@@ -109,7 +113,7 @@ export class Game {
     }
 
     private showQuestion(message) {
-        console.log(message);
+        this.print(message);
     }
 }
 
