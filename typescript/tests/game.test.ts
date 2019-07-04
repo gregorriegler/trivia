@@ -260,6 +260,7 @@ describe('Game', () => {
     }
 });
 
+//todo get rid of this
 var log = console.log;
 declare var console;
 console.messages = "";

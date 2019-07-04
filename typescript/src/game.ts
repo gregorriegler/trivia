@@ -3,6 +3,7 @@ export class Game {
     private players: Array<Player> = [];
     private currentPlayerIndex: number = 0;
     private currentPlayer: Player;
+    //todo probably this belongs to the player?
     private isGettingOutOfPrison: boolean = false;
 
     private questions = {
@@ -14,6 +15,7 @@ export class Game {
 
     constructor() {
         for (let i = 0; i < 50; i++) {
+            //todo this could be more generic using the new structure
             this.questions.Pop.push("Pop Question " + i);
             this.questions.Science.push("Science Question " + i);
             this.questions.Sports.push("Sports Question " + i);
@@ -31,6 +33,7 @@ export class Game {
         return true;
     }
 
+    //todo i can roll any number, make mistake proof
     public roll(roll: number) {
         this.print(this.currentPlayer.name + " is the current player");
         this.print("They have rolled a " + roll);
@@ -70,6 +73,7 @@ export class Game {
         return true;
     }
 
+    // todo is there a bug in this?
     public wasCorrectlyAnswered(): boolean {
         let winner = !this.currentPlayer.inPrison || this.isGettingOutOfPrison
             ? this.correctAnswer()
@@ -108,6 +112,7 @@ export class Game {
         this.currentPlayer = this.players[this.currentPlayerIndex];
     }
 
+    //todo create ui interface for this, so i don't have to overwrite console
     private print(message) {
         console.log(message);
     }
@@ -166,6 +171,7 @@ class Player {
         return this._purse != 6
     }
 
+    //todo this probably belongs to the category
     category(): string {
         if (this._place == 0)
             return 'Pop';
