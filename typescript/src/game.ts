@@ -114,7 +114,7 @@ export class Game {
 }
 
 class Player {
-    private _name: string;
+    private readonly _name: string;
     private _place: number;
     private _purse: number;
     private _inPenaltyBox: boolean;
