@@ -31,10 +31,6 @@ export class Game {
         return true;
     }
 
-    private print(message) {
-        console.log(message);
-    }
-
     public roll(roll: number) {
         this.print(this.currentPlayer.name + " is the current player");
         this.print("They have rolled a " + roll);
@@ -83,7 +79,7 @@ export class Game {
     }
 
     private askQuestion(): void {
-        this.showQuestion(this.questions[this.currentPlayer.category()].shift());
+        this.print(this.questions[this.currentPlayer.category()].shift());
     }
 
     private correctAnswer() {
@@ -111,9 +107,8 @@ export class Game {
 
         this.currentPlayer = this.players[this.currentPlayerIndex];
     }
-
-    private showQuestion(message) {
-        this.print(message);
+    private print(message) {
+        console.log(message);
     }
 }
 
