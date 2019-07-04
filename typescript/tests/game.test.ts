@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {describe, it, fit, beforeEach} from 'mocha';
+import {describe, it, beforeEach} from 'mocha';
 import {Game} from '../src/game';
 
 describe('Game', () => {
